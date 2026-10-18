@@ -1,0 +1,585 @@
+.root {
+  --ink: #141512;
+  --paper: #f2f0e8;
+  --mint: #9fd6c8;
+  --tangerine: #ff5a36;
+  --line: rgba(242, 240, 232, 0.16);
+  --line-strong: rgba(242, 240, 232, 0.3);
+  --muted: rgba(242, 240, 232, 0.62);
+  --faint: rgba(242, 240, 232, 0.5);
+  --font-mono: "Space Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Anybody Variable", "Anybody", "Instrument Sans Variable", system-ui, sans-serif;
+  --font-body: "Instrument Sans Variable", "Instrument Sans", system-ui, -apple-system, sans-serif;
+
+  container-name: sonu-sole;
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  color: var(--paper);
+  font-family: var(--font-body);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 18px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.kicker {
+  margin: 0;
+  color: var(--mint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.hint {
+  margin: 0;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin-inline: auto;
+  aspect-ratio: 300 / 600;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Drawing */
+
+.rail {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.14;
+  stroke-width: 1;
+}
+
+.rail path:first-child {
+  stroke-dasharray: 2 6;
+}
+
+.soleShadow {
+  fill: #000;
+  opacity: 0.55;
+}
+
+.soleBase {
+  fill: #1b1d19;
+  stroke: var(--paper);
+  stroke-opacity: 0.5;
+  stroke-width: 1.2;
+}
+
+.innerLine {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.2;
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.zoneGroup {
+  pointer-events: none;
+}
+
+.zoneTint {
+  fill: var(--mint);
+  opacity: 0.04;
+  transition: opacity 180ms ease;
+}
+
+.zoneOutline {
+  fill: none;
+  stroke: var(--mint);
+  stroke-opacity: 0;
+  stroke-width: 1;
+  transition: stroke-opacity 180ms ease;
+}
+
+.zoneGroup[data-selected="true"] .zoneTint {
+  opacity: 0.075;
+}
+
+.zoneGroup[data-active="true"] .zoneTint {
+  opacity: 0.16;
+}
+
+.zoneGroup[data-active="true"] .zoneOutline {
+  stroke-opacity: 0.4;
+}
+
+.bumperFill {
+  fill: var(--tangerine);
+  fill-opacity: 0.3;
+  stroke: var(--tangerine);
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+}
+
+.bumperLine {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.3;
+  stroke-width: 1;
+}
+
+.bumperLineSoft {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.18;
+  stroke-width: 1;
+}
+
+.toeSipes {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.16;
+  stroke-width: 1;
+}
+
+.forefootLines {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.2;
+  stroke-width: 1;
+}
+
+.flexGroove {
+  fill: none;
+  stroke: var(--tangerine);
+  stroke-opacity: 0.9;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.flexShadow {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.18;
+  stroke-width: 1;
+}
+
+.treadDashes {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.13;
+  stroke-width: 1;
+}
+
+.shank {
+  fill: var(--mint);
+  fill-opacity: 0.18;
+  stroke: var(--mint);
+  stroke-opacity: 0.7;
+  stroke-width: 1;
+}
+
+.shankTicks {
+  fill: none;
+  stroke: var(--mint);
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+}
+
+.archLines {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.12;
+  stroke-width: 1;
+}
+
+.soleLabel {
+  fill: var(--paper);
+  fill-opacity: 0.5;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.soleSubLabel {
+  fill: var(--paper);
+  fill-opacity: 0.25;
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 2px;
+}
+
+.heelPad {
+  fill: var(--mint);
+  fill-opacity: 0.12;
+  stroke: var(--mint);
+  stroke-opacity: 0.6;
+  stroke-width: 1.2;
+}
+
+.heelLines {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.2;
+  stroke-width: 1;
+}
+
+.heelAccent {
+  fill: none;
+  stroke: var(--tangerine);
+  stroke-opacity: 0.75;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.sideMint {
+  fill: none;
+  stroke: var(--mint);
+  stroke-opacity: 0.45;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.sidePaper {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.16;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.flexNotches {
+  fill: none;
+  stroke: var(--tangerine);
+  stroke-opacity: 0.8;
+  stroke-width: 1.5;
+}
+
+.ticks {
+  fill: none;
+  stroke: var(--paper);
+  stroke-opacity: 0.3;
+  stroke-width: 1;
+}
+
+/* Zone hit areas */
+
+.zoneButton {
+  position: absolute;
+  left: 8%;
+  z-index: 2;
+  width: 84%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 22px;
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.zoneButton:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.zoneButton:focus-visible {
+  outline: none;
+}
+
+.zoneToe {
+  top: 3%;
+  height: 22%;
+}
+
+.zoneForefoot {
+  top: 25%;
+  height: 25%;
+}
+
+.zoneArch {
+  top: 50%;
+  height: 18.33%;
+}
+
+.zoneHeel {
+  top: 68.33%;
+  height: 28.33%;
+}
+
+.zoneChip {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  transform: translateY(-50%);
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.zoneButton[aria-pressed="true"] .zoneChip {
+  border-color: var(--mint);
+  background: var(--mint);
+  color: var(--ink);
+}
+
+.zoneButton:focus-visible .zoneChip {
+  outline: 2px solid var(--tangerine);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .zoneButton:hover .zoneChip {
+    border-color: var(--mint);
+    color: var(--mint);
+  }
+
+  .zoneButton[aria-pressed="true"]:hover .zoneChip {
+    color: var(--ink);
+  }
+}
+
+/* Detail panel and key */
+
+.info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.panel {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.panelMeta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--mint);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.panelMaterial {
+  color: var(--faint);
+  text-align: right;
+}
+
+.panelTitle {
+  margin: 10px 0 6px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-size: clamp(26px, 9cqw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.panelBody {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.gauge {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.gaugeBar {
+  height: 2px;
+  background: var(--line);
+  transition: background-color 160ms ease;
+}
+
+.gaugeBar[data-on="true"] {
+  background: var(--tangerine);
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.legendMark {
+  width: 14px;
+  height: 2px;
+  flex: none;
+  background: var(--paper);
+  opacity: 0.55;
+}
+
+.legendMark[data-kind="toe"] {
+  background: var(--tangerine);
+  opacity: 0.9;
+}
+
+.legendMark[data-kind="forefoot"] {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--tangerine) 0 4px,
+    transparent 4px 7px
+  );
+  opacity: 0.9;
+}
+
+.legendMark[data-kind="arch"] {
+  background: var(--mint);
+  opacity: 0.8;
+}
+
+.legendMark[data-kind="heel"] {
+  background: radial-gradient(circle, var(--mint) 1px, transparent 1px) 0 0 / 4px 2px;
+  opacity: 0.8;
+}
+
+.legendIndex {
+  color: var(--faint);
+}
+
+.legendName {
+  overflow: hidden;
+  color: var(--paper);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legendMaterial {
+  display: none;
+  overflow: hidden;
+  color: var(--faint);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.footnote {
+  margin: 18px 0 0;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+@container sonu-sole (min-width: 440px) {
+  .layout {
+    grid-template-columns: minmax(160px, 240px) minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+  }
+
+  .stage {
+    margin-inline: 0;
+  }
+
+  .panel {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .legend {
+    gap: 9px 14px;
+  }
+}
+
+@container sonu-sole (min-width: 560px) {
+  .layout {
+    grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+    gap: clamp(24px, 5cqw, 56px);
+  }
+
+  .panelTitle {
+    font-size: 34px;
+  }
+
+  .legend {
+    gap: 9px 18px;
+  }
+}
+
+@container sonu-sole (min-width: 820px) {
+  .legendMaterial {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoneTint,
+  .zoneOutline,
+  .zoneChip,
+  .gaugeBar {
+    transition: none;
+  }
+}
